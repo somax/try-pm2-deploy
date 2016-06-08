@@ -34,7 +34,7 @@
       ref  : "origin/master",
       repo : "https://github.com/somax/try-pm2-deploy.git",
       path : "/root/hello-pm2/development",
-      "post-deploy" : "npm install && pm2 restart logtest || pm2 start . -n logtest --env dev",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env dev",
       env  : {
         NODE_ENV: "dev"
       }
