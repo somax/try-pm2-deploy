@@ -17,7 +17,6 @@
         PORT: 3000
       }
     }
-
   ],
   deploy : {
     production : {
@@ -26,7 +25,7 @@
       ref  : "origin/master",
       repo : "https://github.com/somax/try-pm2-deploy.git",
       path : "/root/hello-pm2/production",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "npm install && pm2 delete hello-pm2 && pm2 startOrRestart ecosystem.json --env production"
     },
     dev : {
       user : "root",
@@ -34,7 +33,7 @@
       ref  : "origin/master",
       repo : "https://github.com/somax/try-pm2-deploy.git",
       path : "/root/hello-pm2/development",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env dev",
+      "post-deploy" : "npm install && pm2 delete hello-pm2 && pm2 startOrRestart ecosystem.json --env dev",
       env  : {
         NODE_ENV: "dev"
       }
