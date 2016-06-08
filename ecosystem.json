@@ -1,0 +1,38 @@
+{
+  apps : [
+
+    // First application
+    {
+      name      : "hello-pm2",
+      script    : "index.js",
+      env: {
+        COMMON_VARIABLE: "true"
+      },
+      env_production : {
+        NODE_ENV: "production"
+      }
+    }
+
+  ],
+  deploy : {
+    production : {
+      user : "root",
+      host : "node.vbox.me",
+      ref  : "origin/master",
+      repo : "https://github.com/somax/try-pm2-deploy.git",
+      path : "/root/try-pm2/pm2deploy/production",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production"
+    },
+    dev : {
+      user : "root",
+      host : "node.vbox.me",
+      ref  : "origin/master",
+      repo : "https://github.com/somax/try-pm2-deploy.git",
+      path : "/root/try-pm2/pm2deploy/development",
+      "post-deploy" : "npm install && pm2 restart logtest || pm2 start . -n logtest --env dev",
+      env  : {
+        NODE_ENV: "dev"
+      }
+    }
+  }
+}
