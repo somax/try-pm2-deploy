@@ -6,15 +6,26 @@
       name      : "hello-pm2",
       script    : "index.js",
       env: {
-        COMMON_VARIABLE: "true"
+        DEBUG: "false"
       },
       env_dev : {
-        NODE_ENV: "development",
-        PORT: 3001
+        NODE_ENV: "development"
       },
       env_production : {
-        NODE_ENV: "production",
-        PORT: 3000
+        NODE_ENV: "production"
+      }
+    },
+    {
+      name      : "hello-pm2-dev",
+      script    : "index.js 3001",
+      env: {
+        DEBUG: "true"
+      },
+      env_dev : {
+        NODE_ENV: "development"
+      },
+      env_production : {
+        NODE_ENV: "production"
       }
     }
   ],
@@ -25,7 +36,8 @@
       ref  : "origin/master",
       repo : "https://github.com/somax/try-pm2-deploy.git",
       path : "/root/hello-pm2/production",
-      "post-deploy" : "npm install && pm2 delete hello-pm2 && pm2 startOrRestart ecosystem.json --env production"
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env production",
+      "pre-deploy-local" : "echo 'This is a local executed command'"
     },
     dev : {
       user : "root",
@@ -33,7 +45,8 @@
       ref  : "origin/master",
       repo : "https://github.com/somax/try-pm2-deploy.git",
       path : "/root/hello-pm2/development",
-      "post-deploy" : "npm install && pm2 delete hello-pm2 && pm2 startOrRestart ecosystem.json --env dev",
+      "per-deploy":"pm2 delete hello-pm2",
+      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json --env dev",
       env  : {
         NODE_ENV: "dev"
       }
