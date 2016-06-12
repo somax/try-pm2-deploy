@@ -6,7 +6,12 @@
       name      : "hello-pm2",
       script    : "index.js",
       env: {
-        DEBUG: "false"
+        DEBUG: "false",
+        PORT: 3000,
+        NODE_ENV: "production",
+        "WEBHOOK_PORT": 23928,
+        "WEBHOOK_PATH": "/webhook",
+        "WEBHOOK_SECRET": "SECRET"
       },
       env_dev : {
         NODE_ENV: "development"
@@ -20,7 +25,8 @@
       script    : "index.js",
       env: {
         DEBUG: "true",
-        PORT: 3001
+        PORT: 3001,
+        NODE_ENV: "development"
       },
       env_dev : {
         NODE_ENV: "development"
